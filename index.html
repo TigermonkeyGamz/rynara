@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rynara Skill Tree</title>
+<style>
+  body {
+    margin: 0;
+    padding: 0;
+    background: #111;
+    font-family: sans-serif;
+    overflow: hidden;
+  }
+
+  #skill-tree {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    overflow: visible;
+  }
+
+  .skill {
+    position: absolute;
+    background: #222;
+    border-radius: 50%;
+    cursor: pointer;
+    user-select: none;
+    transition: all 0.2s ease;
+    box-shadow: 0 0 10px rgba(255,255,255,0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 4px solid #555; /* Default border */
+  }
+
+  .skill:hover {
+    background: #444;
+    box-shadow: 0 0 15px #fff;
+  }
+
+  .unlocked {
+    background: #d4a526 !important;
+    box-shadow: 0 0 20px gold;
+  }
+
+  .line {
+    position: absolute;
+    height: 2px;
+    background: #fff;
+    transform-origin: left center;
+    z-index: -1;
+  }
+
+  .tooltip {
+    position: absolute;
+    background: rgba(0,0,0,0.85);
+    color: #fff;
+    padding: 5px 10px;
+    border-radius: 5px;
+    pointer-events: none;
+    font-size: 14px;
+    white-space: nowrap;
+    display: none;
+  }
+
+  #skill-points {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    color: #fff;
+    font-size: 18px;
+    background: #222;
+    padding: 5px 10px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px #000;
+    z-index: 1000;
+  }
+
+  #grid {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-size: 50px 50px;
+    pointer-events: none;
+    z-index: -2;
+    display: none;
+  }
+</style>
+</head>
+<body>
+
+<div id="skill-points">Skill Points: <span id="sp-count">10</span></div>
+<div id="skill-tree">
+  <canvas id="grid"></canvas>
+</div>
+<div class="tooltip" id="tooltip"></div>
+
+<script>
+let sp = 10;
+const spCount = document.getElementById('sp-count');
+const tooltip = document.getElementById('tooltip');
+const tree = document.getElementById('skill-tree');
+const gridCanvas = document.getElementById('grid');
+const gridCtx = gridCanvas.getContext('2d');
+let showGrid = true;
+
+// === Skill Data === (x/y relative to CENTER)
+const skillData = [
+  { id: 'skill1', name: 'Way of the Warrior', desc: 'Increased Melee Damage.<br>Skill: Spin', cost: 2, parent: null, x: -200, y: 0, size: 40, borderColor: '#FF0000' },
+  { id: 'skill2', name: 'Shield Wall', desc: 'Block incoming attacks.', cost: 3, parent: 'skill1', x: -350, y: -70, size: 70, borderColor: '#00FF00' },
+  { id: 'skill3', name: 'Earth Slam', desc: 'Crush enemies around you.', cost: 2, parent: 'skill1', x: -350, y: 70, size: 70, borderColor: '#0000FF' },
+  { id: 'skill4', name: 'War Cry', desc: 'Buff allies.', cost: 1, parent: 'skill3', x: 200, y: 150, size: 70, borderColor: '#FFFF00' },
+];
+
+// Center point
+function centerX() { return tree.clientWidth / 2; }
+function centerY() { return tree.clientHeight / 2; }
+
+// Grid drawing
+function drawGrid() {
+  gridCanvas.width = tree.clientWidth;
+  gridCanvas.height = tree.clientHeight;
+  gridCtx.clearRect(0,0,gridCanvas.width,gridCanvas.height);
+
+  gridCtx.strokeStyle = '#333';
+  gridCtx.lineWidth = 1;
+  gridCtx.font = '10px sans-serif';
+  gridCtx.fillStyle = '#555';
+  
+  const step = 50;
+  const cx = centerX();
+  const cy = centerY();
+  
+  for(let x = 0; x < gridCanvas.width; x += step) {
+    gridCtx.beginPath();
+    gridCtx.moveTo(x, 0);
+    gridCtx.lineTo(x, gridCanvas.height);
+    gridCtx.stroke();
+    gridCtx.fillText(x - cx, x + 2, cy + 12);
+  }
+  
+  for(let y = 0; y < gridCanvas.height; y += step) {
+    gridCtx.beginPath();
+    gridCtx.moveTo(0, y);
+    gridCtx.lineTo(gridCanvas.width, y);
+    gridCtx.stroke();
+    gridCtx.fillText(cy - y, cx + 2, y - 2);
+  }
+
+  gridCanvas.style.display = showGrid ? 'block' : 'none';
+}
+
+// Toggle grid with "G"
+window.addEventListener('keydown', e => {
+  if(e.key.toLowerCase() === 'g') {
+    showGrid = !showGrid;
+    drawGrid();
+  }
+});
+
+// Create skill elements
+skillData.forEach(skill => {
+  const div = document.createElement('div');
+  div.className = 'skill';
+  div.id = skill.id;
+  div.dataset.name = skill.name;
+  div.dataset.desc = skill.desc;
+  div.dataset.cost = skill.cost;
+  if(skill.parent) div.dataset.parent = skill.parent;
+
+  div.style.left = centerX() + skill.x - skill.size/2 + 'px';
+  div.style.top = centerY() + skill.y - skill.size/2 + 'px';
+  div.style.width = skill.size + 'px';
+  div.style.height = skill.size + 'px';
+  div.style.borderColor = skill.borderColor || '#555';
+  div.textContent = ''; // No text inside circle
+
+  tree.appendChild(div);
+
+  // Tooltip
+  div.onmouseover = (e) => {
+    tooltip.style.display = 'block';
+    tooltip.innerHTML = `<strong>${skill.name}</strong><br>${skill.desc}<br>SP Cost: ${skill.cost}`;
+  };
+  div.onmousemove = (e) => {
+    tooltip.style.left = e.pageX + 15 + 'px';
+    tooltip.style.top = e.pageY + 15 + 'px';
+  };
+  div.onmouseout = () => tooltip.style.display = 'none';
+
+  // Unlock click
+  div.onclick = () => {
+    if(div.classList.contains('unlocked')) return;
+    const cost = parseInt(div.dataset.cost);
+    if(sp >= cost) {
+      sp -= cost;
+      spCount.textContent = sp;
+      div.classList.add('unlocked');
+      drawLines();
+    } else {
+      alert("Not enough Skill Points!");
+    }
+  };
+});
+
+// Draw lines
+function drawLines() {
+  tree.querySelectorAll('.line').forEach(l => l.remove());
+
+  skillData.forEach(skill => {
+    if(skill.parent) {
+      const parentDiv = document.getElementById(skill.parent);
+      const childDiv = document.getElementById(skill.id);
+
+      const parentX = parseFloat(parentDiv.style.left) + parseFloat(parentDiv.style.width)/2;
+      const parentY = parseFloat(parentDiv.style.top) + parseFloat(parentDiv.style.height)/2;
+      const childX = parseFloat(childDiv.style.left) + parseFloat(childDiv.style.width)/2;
+      const childY = parseFloat(childDiv.style.top) + parseFloat(childDiv.style.height)/2;
+
+      const dx = childX - parentX;
+      const dy = childY - parentY;
+      const length = Math.sqrt(dx*dx + dy*dy);
+      const angle = Math.atan2(dy, dx) * 180 / Math.PI;
+
+      const line = document.createElement('div');
+      line.className = 'line';
+      line.style.width = length + 'px';
+      line.style.left = parentX + 'px';
+      line.style.top = parentY + 'px';
+      line.style.transform = `rotate(${angle}deg)`;
+      line.style.background = childDiv.classList.contains('unlocked') ? '#d4a526' : '#fff';
+
+      tree.appendChild(line);
+    }
+  });
+}
+
+// Initial draw
+window.onload = () => {
+  drawGrid();
+  drawLines();
+};
+window.addEventListener('resize', () => {
+  drawGrid();
+  skillData.forEach(skill => {
+    const div = document.getElementById(skill.id);
+    div.style.left = centerX() + skill.x - skill.width/2 + 'px';
+    div.style.top = centerY() + skill.y - skill.height/2 + 'px';
+  });
+  drawLines();
+});
+</script>
+</body>
+</html>
