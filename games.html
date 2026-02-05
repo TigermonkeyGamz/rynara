@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TigermonkeyGamz — Games</title>
+
+<!-- Google Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400..900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+
+<style>
+/* ============================= */
+/* GLOBAL */
+/* ============================= */
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Share Tech Mono', system-ui, sans-serif;
+  background: #0d0d0d;
+  color: #e3dd9d;
+  text-align: center;
+}
+
+a {
+  color: #e3dd9d;
+  text-decoration: none;
+}
+
+.header-small {
+  margin: 0 0 6px 0;
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.devlog-sub {
+  margin: 0 10px 0 10px;
+  font-size: 13px;
+}
+
+
+/* ============================= */
+/* SITE HEADER */
+/* ============================= */
+
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+
+  background: linear-gradient(
+    180deg,
+    #000000 0%,
+    #0d0d0d 100%
+  );
+
+  border-bottom: 1px solid #222;
+}
+
+.header-inner {
+  max-width: 1750px;
+  margin: 0 auto;
+  padding: 18px 24px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* ============================= */
+/* BRAND */
+/* ============================= */
+
+.brand {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.brand-name {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 28px;
+  font-weight: 800;
+  letter-spacing: 1px;
+
+  background: linear-gradient(
+    90deg,
+    #e3dd9d,
+    #b3b302
+  );
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.brand-tagline {
+  font-size: 12px;
+  opacity: 0.75;
+  margin-top: 2px;
+}
+
+/* ============================= */
+/* NAV */
+/* ============================= */
+
+.header-nav {
+  display: flex;
+  gap: 24px;
+}
+
+.header-nav a {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 14px;
+  letter-spacing: 0.5px;
+  opacity: 0.85;
+  position: relative;
+}
+
+.header-nav a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -4px;
+  width: 0%;
+  height: 2px;
+  background: #e3dd9d;
+  transition: width 0.25s ease;
+}
+
+.header-nav a:hover::after {
+  width: 100%;
+}
+
+.header-nav a:hover {
+  opacity: 1;
+}
+
+/* ============================= */
+/* MOBILE */
+/* ============================= */
+
+@media (max-width: 700px) {
+  .header-inner {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .header-nav {
+    gap: 16px;
+  }
+}
+
+/* ============================= */
+/* BUTTON */
+/* ============================= */
+
+.button {
+  background-color: #b3b302;
+  color: #000;
+  font-family: 'Orbitron', sans-serif;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.button:hover {
+  background-color: #e3dd9d;
+  transform: scale(1.05);
+  box-shadow: 0 0 20px #400909;
+}
+
+/* ============================= */
+/* PAGE HEADER */
+/* ============================= */
+
+.page-header {
+  margin: 20px 0;
+}
+
+/* ============================= */
+/* GAME CARD */
+/* ============================= */
+
+.game-card {
+  width: 70%;
+  max-width: 1750px;
+  margin: 30px auto;
+  padding: 20px;
+  background: #000;
+  border-radius: 18px;
+  box-sizing: border-box;
+
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* ============================= */
+/* GAME HEADER */
+/* ============================= */
+
+.game-header h1 {
+  text-align: left;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 28px;
+  margin: 0 0 6px 0;
+}
+
+.game-header p {
+  text-align: left;
+  margin: 0;
+  font-size: 14px;
+  max-width: 600px;
+}
+
+.game-header-row {
+  display: flex;
+  justify-content: space-between; /* title left, link right */
+  align-items: center;
+  gap: 10px; /* optional spacing between title and link if needed */
+}
+
+.game-header-link {
+  text-align: right;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 20px;
+  margin: 0 0 15px 0; /* reset margin to align vertically */
+  text-decoration: none;
+  color: #e3dd9d; /* straw/yellow */
+}
+
+.game-header-link:hover {
+  text-decoration: underline;
+}
+
+
+/* ============================= */
+/* NEWS REPORT */
+/* ============================= */
+
+.news-report {
+  text-align: left;
+  margin-top: 10px;
+  padding: 10px;
+  background: #121212;
+  border-left: 4px solid #f4e2b8;
+  font-size: 14px;
+}
+
+.major-monogram {
+  color: #a0a000;
+  font-weight: bold;
+}
+
+.agent-carl {
+  color: #80c0c0;
+  font-style: italic;
+}
+
+.bold-text {
+  font-size: 20px;
+  color: #f4e2b8;
+  margin-top: 8px;
+  font-weight: bold;
+}
+
+/* ============================= */
+/* GAME CONTENT ROW */
+/* ============================= */
+
+.game-content {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+}
+
+/* ============================= */
+/* COVER (IMAGE OR EMBED) */
+/* ============================= */
+
+.cover-wrapper {
+  max-height: 300px;
+  display: inline-block;
+  border-radius: 14px;
+  overflow: hidden;
+}
+
+.cover-wrapper img,
+.cover-wrapper iframe {
+  max-height: 300px;
+  height: 300px;
+  width: auto;
+  display: block;
+  border-radius: 14px;
+  object-fit: contain;
+}
+
+/* ============================= */
+/* DEVLOG PANEL */
+/* ============================= */
+
+.devlogs {
+  width: 673px;          /* EXACT width for 3 portrait devlogs */
+  height: 300px;     /* MATCH cover height */
+
+  display: flex;
+  margin-left: auto;
+  gap: 10px;
+  justify-content: flex-start;
+
+  overflow-x: auto;
+  overflow-y: hidden;
+
+  scrollbar-width: thin;
+  scrollbar-color: #e3dd9d transparent;
+}
+
+.devlogs::-webkit-scrollbar {
+  height: 8px;
+}
+
+.devlogs::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.devlogs::-webkit-scrollbar-thumb {
+  background: #e3dd9d;
+  border-radius: 4px;
+}
+
+.devlogs::-webkit-scrollbar-button {
+  display: none;
+}
+
+/* ============================= */
+/* DEVLOG CARDS */
+/* ============================= */
+
+.devlog {
+  all: unset;                 /* strip default button styles */
+  box-sizing: border-box;
+
+  flex: 0 0 130px;            /* 3 × 130 + 2 × 10px gap = 420px */
+  height: 100%;
+  aspect-ratio: 3 / 4;        /* PORTRAIT */
+
+  background-color: #222;
+  border-radius: 10px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  flex-direction: column;   /* stack text vertically */
+  gap: 6px;                 /* ← THIS is your “line break” */
+  text-align: center;
+
+  font-family: 'Orbitron', sans-serif;
+  font-size: 14px;
+  color: inherit;
+
+  cursor: pointer;            /* button affordance */
+
+  /* ✅ THIS is the fix */
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.devlog:hover {
+  background-color: #e3dd9d;  /* straw/yellow */
+  color: #0f0f0f;             /* readable text */
+}
+
+
+.section-divider {
+  border: none;
+  height: 1px;
+  background: #1c1c1c;
+  margin: 40px 0;
+}
+
+</style>
+</head>
+
+<body>
+
+<!--HEADER-->
+<header class="site-header">
+  <div class="header-inner">
+    <div class="brand">
+      <span class="brand-name">TigermonkeyGamz</span>
+      <span class="brand-tagline">Indie Games • Devlogs</span>
+    </div>
+
+    <nav class="header-nav">
+      <a href="../index.html">Home</a>
+      <a href="../pages/games.html">Games</a>
+      <a href="#">Devlogs</a>
+    </nav>
+  </div>
+</header>
+
+<!-- START (LIGHTBULB!) GAME CARD -->
+<div class="game-card">
+
+  <div class="game-header">
+    <div class="game-header-row">
+      <h1>Lightbulb!</h1>
+      <a class="game-header-link" href="https://tigermonkeygamz.itch.io/lightbulb">Play it on Itch.io!</a>
+    </div>
+
+    <p>
+      A 2D Platformer. You are an Electrician who has to fix lightbulbs. Well, that's the pitch.
+      Now, where'd I put the spoof... Ah, there it is!
+    </p>
+
+    <div class="news-report">
+      <span class="major-monogram">Major Monogram:</span>
+      "Many people's lightbulbs are going out in people's houses. They need a professional electrician to fix them."<br>
+      <span class="agent-carl">Carl:</span>
+      "<em>uhh, sir, I don't think--</em>"<br>
+      <span class="major-monogram">Major Monogram:</span>
+      "<em>shhh! You're going to mess it up!</em>"<br>
+      <p class="bold-text">You are that electrician.</p>
+    </div>
+  </div>
+
+  <div class="game-content">
+
+    <!-- COVER IMAGE OR EMBED (YOU choose which file goes here) -->
+    <div class="cover-wrapper">      
+      <img src="../assets/lightbulb_cover.png" alt="Lightbulb Cover">
+    </div>
+    <div class="cover-wrapper">
+      <img src="../assets/lightbulb_cover_2.png" alt="Lightbulb Cover 2"></img>
+    </div>
+    <!-- DEVLOGS -->
+<div class="devlogs">
+    <button class="devlog" onclick="window.location.href='https://tigermonkeygamz.itch.io/lightbulb/devlog/1183758/lightbulb-v02';">
+    <p class="header-small">Devlog v0.1.2</p>
+    <p class="devlog-sub"><strong>Levels 16-20!</strong> <br> Level Select; <br> Controller support.</p>
+  </button>
+    <button class="devlog" onclick="window.location.href='https://tigermonkeygamz.itch.io/lightbulb/devlog/1151007/update-v0141';">
+    <p class="header-small">Devlog v0.1.4.1</p>
+    <p class="devlog-sub">New level tiles; <br> <strong>Unity Security vulnerability fixed.</strong></p>
+  </button>
+
+  <button class="devlog" onclick="window.location.href='https://tigermonkeygamz.itch.io/lightbulb/devlog/967199/update-v014';">
+    <p class="header-small">Devlog v0.1.4</p>
+    <p class="devlog-sub">Levels 11 – 15!</p>
+  </button>
+
+  <button class="devlog" onclick=window.location.href='https://tigermonkeygamz.itch.io/lightbulb/devlog/635168/update-v013';>
+    <p class="header-small">Devlog v0.1.3</p>
+    <p class="devlog-sub">Small Improvements.</p>
+  </button>
+
+  <button class="devlog" onclick="window.location.href='https://tigermonkeygamz.itch.io/lightbulb/devlog/634698/update-v012';">
+    <p class="header-small">Devlog v0.1.2</p>
+    <p class="devlog-sub">Modified cameras; filled unnecessary holes.</p>
+  </button>
+</div>
+
+  </div>
+</div>
+<!-- END (LIGHTBULB!) GAME CARD -->
+
+
+<!-- START (CUBE LABS) GAME CARD -->
+<div class="game-card">
+  <div class="game-header">
+    <div class="game-header-row">
+      <h1>Cube Labs</h1>
+      <a class="game-header-link" href="https://tigermonkeygamz.itch.io/cube-labs">Download it on Itch.io!</a>
+    </div>
+
+    <p>
+      A 3D platformer in which cubes on buttons power doors.
+      With 2 puzzle gauntlets — one for singleplayer, one for online co-op —
+      This game features fun puzzles for everyone!
+    </p>
+  </div>
+
+  <div class="game-content">
+
+    <!-- COVER IMAGE OR EMBED (YOU choose which file goes here) -->
+    <div class="cover-wrapper">
+      <img src="../assets/cube_labs_cover.png" alt="Cube Labs Cover">
+      <!-- OR -->
+      <!-- <iframe src="../games/Lightbulb/index.html" frameborder="0"></iframe> -->
+    </div>
+
+    <!-- DEVLOGS -->
+    <div class="devlogs">
+  <button class="devlog" onclick="window.location.href='https://tigermonkeygamz.itch.io/cube-labs/devlog/957900/update-v06';">
+    <p class="header-small">Devlog v0.6</p>
+    <p class="devlog-sub">New player models; more multiplayer puzzles.</p>
+  </button>
+    <button class="devlog" onclick="window.location.href='https://tigermonkeygamz.itch.io/cube-labs/devlog/955430/update-v05-windows-only';">
+    <p class="header-small">Devlog v0.5 (Windows)</p>
+    <p class="devlog-sub">Fixed eyes; brand new multiplayer levels!</p>
+  </button>
+    <button class="devlog" onclick="window.location.href='https://tigermonkeygamz.itch.io/cube-labs/devlog/952514/update-v04';">
+    <p class="header-small">Devlog v0.4</p>
+    <p class="devlog-sub">Added conveyor belts (singleplayer only); added eyes for the player.</p>
+  </button>
+    </div>
+
+  </div>
+</div>
+<!-- END (CUBE LABS) GAME CARD -->
+
+<!-- START (ARCHIVIST'S CLOCK) GAME CARD -->
+<div class="game-card">
+  <div class="game-header">
+    <div class="game-header-row">
+      <h1>The Archivist's Clock</h1>
+      <a class="game-header-link" href="https://tigermonkeygamz.itch.io/archivists-clock">Play it on Itch.io!</a>
+    </div>
+
+    <p>
+      The player, youngest in a long line of 
+      archive caretakers, finds a magic clock
+      that can turn back time.
+    </p>
+  </div>
+
+  <div class="game-content">
+
+    <!-- COVER IMAGE OR EMBED (YOU choose which file goes here) -->
+    <div class="cover-wrapper">
+      <img src="../assets/archivists_clock_cover.png" alt="Archivist's Clock Cover">
+      <!-- OR -->
+      <!-- <iframe src="../games/archivists_clock/index.html" frameborder="0"></iframe> -->
+    </div>
+
+    <!-- DEVLOGS -->
+    <div class="devlogs">
+        <p class="header-small">No devlogs yet.</p>
+    </div>
+
+  </div>
+</div>
+<!-- END (ARCHIVIST'S CLOCK) GAME CARD -->
+
+
+<!--FOOTER-->
+<footer class="site-footer">
+  <div class="footer-content">
+    <p>© 2025 TigermonkeyGamz</p>
+    <div class="footer-links">
+      <a href="../index.html">Home</a>
+      <a href="../games.html">Games</a>
+      <a href="#"><i>Contact</i></a>
+    </div>
+  </div>
+</footer>
+<br>
+</body>
+</html>
