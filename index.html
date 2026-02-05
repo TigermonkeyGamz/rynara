@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>TigermonkeyGamz — Home</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: #0f0f0f;
+      color: #f4e2b8;
+      font-family: 'Share Tech Mono', monospace;
+      line-height: 1.6;
+      scroll-behavior: smooth;
+    }
+
+    header {
+      padding: 60px 20px;
+      text-align: center;
+      background: linear-gradient(135deg, #121212, #1e1e1e);
+      box-shadow: 0 0 30px rgba(128,0,0,0.5);
+    }
+
+    h1 {
+      font-size: 3rem;
+      margin-bottom: 10px;
+      text-shadow: 0 0 10px #800000;
+    }
+
+    p {
+      max-width: 700px;
+      margin: 0 auto 10px;
+      color: #f4e2b8;
+      text-shadow: 0 0 2px #808000;
+    }
+
+    .tiny-note {
+      font-size: 12px;
+      color: #f4e2b8;
+      margin: 0 auto 10px;
+      font-style: italic;
+    }
+
+    .buttons {
+      margin-top: 30px;
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+    }
+
+    a.button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      height: 50px;
+      width: 180px;
+      border-radius: 10px;
+      background: #a0a000;
+      color: #0f0f0f;
+      text-decoration: none;
+      font-weight: bold;
+      font-family: 'Share Tech Mono', monospace;
+      transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+    }
+
+    a.button:hover {
+      transform: translateY(-3px) scale(1.05);
+      background: #f4e2b8;
+      box-shadow: 0 0 25px #f4e2b8;
+    }
+
+    a.button img {
+      width: 24px;
+      vertical-align: middle;
+      margin-right: 8px;
+    }
+
+    section {
+      padding: 50px 20px;
+      max-width: 900px;
+      margin: auto;
+    }
+
+    h2 {
+      text-shadow: 0 0 8px #800000;
+      font-size: 2.2rem;
+      margin-bottom: 20px;
+    }
+
+    /* DEVLOGS */
+    .devlog {
+      display: flex;
+      overflow-x: auto;
+      gap: 20px;
+      padding: 20px 10px 20px 10px; /* top/right/bottom/left padding */
+      scroll-snap-type: x mandatory;
+    }
+
+
+    .devlog-item {
+      flex: 0 0 calc((100% - 40px) / 3); /* exactly 3 fit */
+      background: #1a1a1a;
+      padding: 15px;
+      border-radius: 10px;
+      scroll-snap-align: start;
+      box-shadow: 0 0 20px rgba(80,80,50,0.6);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      word-wrap: break-word;
+      text-align: left;
+      color: #f4e2b8;
+      text-shadow: 0 0 6px #800000;
+      box-sizing: border-box;
+    }
+
+    .devlog-item:hover {
+      transform: scale(1.03);
+      box-shadow: 0 0 35px rgba(128,0,0,0.8);
+    }
+
+    .placeholder-blue, .placeholder-green, .placeholder-red {
+      width: 100%;
+      height: 140px;
+      border-radius: 12px;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 1rem;
+    }
+
+    .placeholder-blue { background: repeating-linear-gradient(45deg,#1f4e79,#1f4e79 20px,#4a86c5 20px,#4a86c5 40px);}
+    .placeholder-green { background: repeating-linear-gradient(45deg,#3f7f3f,#3f7f3f 20px,#7fbf7f 20px,#7fbf7f 40px);}
+    .placeholder-red { background: repeating-linear-gradient(45deg,#800000,#800000 20px,#c04040 20px,#c04040 40px);}
+
+    .devlog::-webkit-scrollbar { height: 8px; }
+    .devlog::-webkit-scrollbar-thumb { background: #808000; border-radius: 4px; }
+    .devlog::-webkit-scrollbar-track { background: #121212; }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      color: #f4e2b8;
+      font-size: 0.9rem;
+      text-shadow: 0 0 3px #808000;
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <h1>TigermonkeyGamz</h1>
+    <p>Indie game developer & gaming YouTuber.</p>
+    <p class="tiny-note">Site is in beta. Contents may explode without warning. XD</p>
+
+    <div class="buttons">
+      <a class="button" href="Games.html">🎮 Games</a>
+      <a class="button" href="#youtube">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/4/42/YouTube_icon_%282013-2017%29.png" alt="YouTube Logo">
+        YouTube
+      </a>
+    </div>
+  </header>
+
+  <section id="games">
+    <h2>🎮 Games</h2>
+    <p>Below are my projects. Screenshots, devlogs, and itch.io links will go here.</p>
+
+    <div class="devlog">
+      <div class="devlog-item">
+        <div class="placeholder-red">Lightbulb!</div>
+        <h3>Lightbulb!</h3>
+        <p> A 2D platformer. <a href="https://tigermonkeygamz.itch.io/lightbulb/devlog/967199/update-v014" target="_blank">Devlog</a></p>
+      </div>
+
+      <div class="devlog-item">
+        <img src="images/cube_labs_cover.png" alt="Cube Labs Cover Image" style="border-radius:12px;">
+        <h3>Cube Labs</h3>
+        <p> A 3D cube-on-button puzzle game. <a href="https://tigermonkeygamz.itch.io/cube-labs/devlog/957900/update-v06" target="_blank">Devlog</a></p>
+      </div>
+
+      <div class="devlog-item">
+        <img src="" alt="Cube Labs Cover Image">
+        <h3>The Archivist's Clock</h3>
+        <p> Unity 20th Anniversary Game Jam submission. Devlog TBD.</p>
+      </div>
+    </div>
+
+  </section>
+
+  <section id="youtube">
+    <h2>▶️ YouTube / Gaming</h2>
+    <p>Gameplay videos, challenges, and chaos.<br>Devlogs live with the games.</p>
+    <div class="placeholder-red">YouTube Video 1</div>
+    <div class="placeholder-blue">YouTube Video 2</div>
+    <div class="placeholder-green">YouTube Video 3</div>
+  </section>
+
+  <footer>
+    © 2025 TigermonkeyGamz — Test Page
+  </footer>
+
+</body>
+</html>
