@@ -112,13 +112,14 @@ a{
 /* VIEWPORT */
 /* ============================= */
 
-#viewport{
-  position:relative;
-  width:100vw;
-  height:calc(100vh - var(--header-height));
-  cursor:grab;
-  overflow:hidden;
+#viewport {
+  position: relative;
+  width: 100vw;
+  height: calc(100vh - var(--header-height));
+  cursor: grab;
+  overflow: hidden;
 }
+
 /* Embedded mode — no header, fill full space */
 .embedded #viewport {
   height: 100vh;
@@ -261,10 +262,10 @@ let dragging=false;
 let lastX=0,lastY=0;
 
 const skillData=[
-{id:'skill1',name:'Way of the Warrior',desc:'Increased Melee Damage<br>Skill: Spin',cost:2,parent:null,x:-200,y:0,size:40,borderColor:'#FF0000'},
+{id:'skill1',name:'Way of the Warrior',desc:'Increased Melee Damage<br>Skill: Spin',cost:2,parent:null,x:-200,y:-15,size:40,borderColor:'#FF0000'},
 {id:'skill2',name:'Flurry',desc:'Attack multiple times in an instant',cost:3,parent:'skill1',x:-350,y:0,size:70,borderColor:'#00FF00'},
-{id:'skill3',name:'Jump',desc:'Jump in the air and strike enemies',cost:2,parent:'skill2',x:-800,y:70,size:70,borderColor:'#0000FF'},
-{id:'skill4',name:'Power Parry',desc:'Parry as you put up your shield',cost:1,parent:'skill2',x:-800,y:-70,size:70,borderColor:'#FFFF00'}
+{id:'skill3',name:'Jump',desc:'Jump in the air and strike enemies',cost:2,parent:'skill2',x:-550,y:70,size:70,borderColor:'#0000FF'},
+{id:'skill4',name:'Power Parry',desc:'Parry as you put up your shield',cost:1,parent:'skill2',x:-550,y:-70,size:70,borderColor:'#FFFF00'}
 ];
 
 function drawGrid(){
@@ -412,6 +413,7 @@ updateCamera();
 </script>
 </body>
 </html>
+
 
 
 
