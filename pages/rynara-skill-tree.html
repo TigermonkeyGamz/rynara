@@ -386,8 +386,21 @@ updateCamera();
 },{passive:false});
 
 function updateCamera(){
-world.style.transform=`translate(${cameraX}px,${cameraY}px) scale(${zoom})`;
+
+  const bounds = 1800; // how far you can drag from center
+
+  const minX = -bounds * zoom;
+  const maxX =  bounds * zoom;
+  const minY = -bounds * zoom;
+  const maxY =  bounds * zoom;
+
+  cameraX = Math.max(minX, Math.min(maxX, cameraX));
+  cameraY = Math.max(minY, Math.min(maxY, cameraY));
+
+  world.style.transform =
+    `translate(${cameraX}px,${cameraY}px) scale(${zoom})`;
 }
+
 
 drawGrid();
 drawLines();
@@ -395,4 +408,5 @@ updateCamera();
 </script>
 </body>
 </html>
+
 
