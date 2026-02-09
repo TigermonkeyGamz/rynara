@@ -1,82 +1,57 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Request Canva Access</title>
+<div style="max-width:1080px; margin:40px auto; text-align:center; font-family:'Share Tech Mono', monospace; color:#e3dd9d;">
 
-<!-- Google Fonts -->
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400..900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
-
-<style>
-body { margin:0; padding:0; font-family:'Share Tech Mono', system-ui, sans-serif; background:#0d0d0d; color:#e3dd9d; text-align:center; }
-a { color:#e3dd9d; text-decoration:none; }
-.button { background-color:#b3b302; color:#000; font-family:'Orbitron',sans-serif; font-weight:500; padding:12px 20px; border:none; border-radius:8px; width:150px; cursor:pointer; transition:all 0.3s ease; }
-.button:hover { background-color:#e3dd9d; transform:scale(1.05); box-shadow:0 0 20px #400909; }
-
-/* Site Header */
-.site-header { position:sticky; top:0; z-index:100; background:linear-gradient(180deg,#000,#0d0d0d); border-bottom:1px solid #222; }
-.header-inner { max-width:1750px; margin:0 auto; padding:18px 24px; display:flex; align-items:center; justify-content:space-between; }
-.brand { display:flex; flex-direction:column; align-items:flex-start; }
-.brand-name { font-family:'Orbitron',sans-serif; font-size:28px; font-weight:800; letter-spacing:1px; background:linear-gradient(90deg,#e3dd9d,#b3b302); background-clip:text;-webkit-background-clip:text;-webkit-text-fill-color:transparent; }
-.brand-tagline { font-size:12px; opacity:0.75; margin-top:2px; }
-.header-nav { display:flex; gap:24px; }
-.header-nav a { font-family:'Orbitron',sans-serif; font-size:14px; position:relative; opacity:0.85; }
-.header-nav a::after { content:""; position:absolute; left:0; bottom:-4px; width:0%; height:2px; background:#e3dd9d; transition:width 0.25s ease; }
-.header-nav a:hover::after { width:100%; } 
-.header-nav a:hover { opacity:1; }
-
-.whiteboard-container { margin:40px auto; max-width:1080px; display:none; }
-iframe { width:100%; height:600px; border:2px solid #b3b302; border-radius:8px; }
-.google-form { margin:30px auto; max-width:600px; }
-</style>
-</head>
-<body>
-
-<header class="site-header">
-  <div class="header-inner">
-    <div class="brand">
-      <span class="brand-name">TigermonkeyGamz</span>
-      <span class="brand-tagline">Indie Games • Devlogs</span>
-    </div>
-    <nav class="header-nav">
-      <a href="index.html">Home</a>
-      <a href="pages/games.html">Games</a>
-      <a href="pages/rynara-skill-tree.html">Rynara Skill Tree</a>
-      <a href="#">Devlogs</a>
-    </nav>
+  <!-- Password Gate -->
+  <div id="loginBox">
+    <h2 class="brand-name">Enter Whiteboard Password</h2>
+    <input type="password" id="pwInput" placeholder="Password" 
+           style="padding:10px; border-radius:6px; border:none; font-family:'Share Tech Mono'; font-size:16px;">
+    <button onclick="checkPW()" class="button" style="margin-left:10px;">Enter</button>
+    <p id="msg" style="margin-top:10px; font-size:14px; opacity:0.85;"></p>
   </div>
-</header>
 
-<h1 class="brand-name">Rynara Whiteboard</h1>
-<p>The whiteboard below is only visible to approved viewers. Request access using the form!</p>
+  <!-- Whiteboard Embed (Hidden Initially) -->
+  <div id="whiteboard" style="display:none; margin-top:30px;">
+    <iframe 
+      src="https://www.canva.com/design/DAHAUAFa9Zc/J2liC9lxUiq8hi6cWEr7PA/view?embed"
+      style="width:100%; height:600px; border:2px solid #b3b302; border-radius:8px;"
+      allowfullscreen>
+    </iframe>
+  </div>
 
-<div class="whiteboard-container">
-  <iframe src="https://www.canva.com/design/DAHAUAFa9Zc/J2liC9lxUiq8hi6cWEr7PA/view?embed" allowfullscreen></iframe>
-</div>
+  <!-- Google Form for Requests -->
+  <div class="google-form" style="margin-top:40px;">
+    <p>If you don't have the password, request access here:</p>
+    <iframe 
+      src="https://docs.google.com/forms/d/e/1FAIpQLSflyJNTBfGf_uVAUMKnaaJDdNtCkBZBO0JgI1LfRkF1uZsElw/viewform?embedded=true" 
+      width="100%" height="700" frameborder="0" marginheight="0" marginwidth="0">
+      Loading…
+    </iframe>
+  </div>
 
-<p>If you cannot see the whiteboard above, you do not have Canva access. You can request access here:</p>
-<div class="google-form">
-  <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSflyJNTBfGf_uVAUMKnaaJDdNtCkBZBO0JgI1LfRkF1uZsElw/viewform?embedded=true" width="100%" height="700" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
 </div>
 
 <script>
-  
-// OPTIONAL: Show whiteboard if you set a simple "soft password"
-function checkPassword() {
-  const pw = prompt("Enter password to view the whiteboard:");
-  if(pw === "YOUR_SOFT_PASSWORD") { 
-    document.getElementById("whiteboard").style.display = "block"; 
-  } else { 
-    alert("Incorrect password."); 
+  // --- SHA-256 Helper ---
+  async function sha256(text){
+    const data = new TextEncoder().encode(text);
+    const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+    return Array.from(new Uint8Array(hashBuffer))
+      .map(b => b.toString(16).padStart(2,'0'))
+      .join('');
   }
-}
 
-// You can call checkPassword() from a button if desired, but
-// the real security is still from Canva permissions.
+  // --- Replace this hash with the SHA-256 of your password ---
+  const correctHash = "98c241b4295662aee3071c247c013b5d1705e08d70b625adb40905ca29436303";
+
+  async function checkPW(){
+    const input = document.getElementById("pwInput").value;
+    const hash = await sha256(input);
+
+    if(hash === correctHash){
+      document.getElementById("loginBox").style.display="none";
+      document.getElementById("whiteboard").style.display="block";
+    } else {
+      document.getElementById("msg").textContent="Incorrect password.";
+    }
+  }
 </script>
-
-</body>
-</html>
