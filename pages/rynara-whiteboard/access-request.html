@@ -39,7 +39,22 @@ a { color:#e3dd9d; text-decoration:none; }
 .whiteboard-container iframe { width:100%; height:600px; border:2px solid #b3b302; border-radius:8px; }
 
 /* ------------------ Google Form ------------------ */
-.google-form { margin-top:40px; max-width:1080px; margin-left:auto; margin-right:auto; }
+.google-form { 
+  margin-top:40px; 
+  max-width:1080px; 
+  margin-left:auto; 
+  margin-right:auto; 
+  border:2px solid #b3b302;      /* matches whiteboard border */
+  border-radius:8px;              /* same rounded corners */
+  background-color:#555555;       /* medium gray background */
+  padding:20px;                   /* add some inner spacing */
+  box-sizing:border-box;
+}
+.google-form iframe {
+  border:none;                     /* remove default iframe border */
+  border-radius:6px;               /* small rounding inside container */
+}
+
 </style>
 </head>
 <body>
