@@ -47,12 +47,15 @@ a { color:#e3dd9d; text-decoration:none; }
   border:2px solid #b3b302;      /* matches whiteboard border */
   border-radius:8px;              /* same rounded corners */
   background-color:#ffffff;       /* white background */
-  padding:0px;                   /* add NO inner spacing */
+  display: inline-block;
   box-sizing:border-box;
 }
 .google-form iframe {
-  border:none;                     /* remove default iframe border */
-  border-radius:6px;               /* small rounding inside container */
+  width:100%;                     /* fill the container */
+  height:700px;                   /* keep desired height */
+  border:none;                     /* remove iframe border */
+  border-radius:6px;               /* optional small rounding inside container */
+  display:block;
 }
 
 </style>
