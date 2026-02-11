@@ -211,8 +211,9 @@ function updateCamera(){
 }
 
 drawGrid();
-drawLines();
 updateCamera();
+requestAnimationFrame(drawLines);
 </script>
 </body>
 </html>
+
