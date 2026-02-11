@@ -1,37 +1,21 @@
 <!-- =========================================
-   RYNARA SKILL TREE DEV TOOL
-   Viewer Mode + Dev Mode
-   Cartesian Grid (0,0 centered)
-   Skills lock until requirements met
+   RYNARA SKILL TREE EMBED DEV TOOL
 ========================================= -->
 
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Rynara Skill Tree Dev Tool</title>
-
 <style>
-body{
-  margin:0;
+#rynaraViewport{
+  position:relative;
+  width:100%;
+  height:100%;
   overflow:hidden;
   background:#111;
   font-family:sans-serif;
 }
 
-#viewport{
-  position:absolute;
-  width:100%;
-  height:100%;
-  overflow:hidden;
-  cursor:grab;
-}
-
-#world{
+#rynaraWorld{
   position:absolute;
   left:50%;
   top:50%;
-  transform:translate(-50%,-50%);
 }
 
 .skill{
@@ -45,6 +29,7 @@ body{
   background:#222;
   color:white;
   user-select:none;
+  cursor:pointer;
 }
 
 .skill.locked{
@@ -58,36 +43,65 @@ canvas{
   top:0;
   pointer-events:none;
 }
+
+/* DEV BUTTON */
+#devButton{
+  position:absolute;
+  right:10px;
+  top:10px;
+  width:22px;
+  height:22px;
+  background:#444;
+  cursor:pointer;
+  z-index:50;
+}
+
+/* DEV PANEL */
+#devPanel{
+  position:absolute;
+  right:10px;
+  top:40px;
+  background:#222;
+  color:white;
+  padding:10px;
+  display:none;
+  z-index:100;
+}
 </style>
-</head>
 
-<body>
+<div id="rynaraViewport">
 
-<div id="viewport">
-  <div id="world">
-    <canvas id="grid"></canvas>
-    <canvas id="lines"></canvas>
-  </div>
+<div id="devButton"></div>
+
+<div id="devPanel">
+  <b>DEV MODE</b><br>
+  <button id="enableDev">Enable Editing</button>
+</div>
+
+<div id="rynaraWorld">
+  <canvas id="grid"></canvas>
+  <canvas id="lines"></canvas>
+</div>
+
 </div>
 
 <script>
 
-/* ================
-  DEV MODE CONFIG
-================ */
+/* ===================
+ CONFIG
+=================== */
 const DEV_PASSWORD="rynara-dev";
 let DEV_MODE=false;
 
-if(prompt("Enter dev password (Cancel for viewer mode)")===DEV_PASSWORD){
-  DEV_MODE=true;
-}
-
-/* ================
-  GRID SETUP
-================ */
 const gridSize=4000;
 const gridCenter=gridSize/2;
 const step=100;
+
+/* ===================
+ DOM
+=================== */
+const viewport=document.getElementById("rynaraViewport");
+const world=document.getElementById("rynaraWorld");
 
 const gridCanvas=document.getElementById("grid");
 const gridCtx=gridCanvas.getContext("2d");
@@ -98,31 +112,48 @@ const lineCtx=lineCanvas.getContext("2d");
 gridCanvas.width=lineCanvas.width=gridSize;
 gridCanvas.height=lineCanvas.height=gridSize;
 
-/* ================
-  WORLD CONVERSION
-================ */
+/* ===================
+ DEV PANEL
+=================== */
+const devPanel=document.getElementById("devPanel");
+
+document.getElementById("devButton").onclick=()=>{
+  devPanel.style.display=
+  devPanel.style.display==="block"?"none":"block";
+};
+
+document.getElementById("enableDev").onclick=()=>{
+  const pass=prompt("Dev Password?");
+  if(pass===DEV_PASSWORD){
+    DEV_MODE=true;
+    alert("Dev Mode Enabled");
+  }
+};
+
+/* ===================
+ COORDS
+=================== */
 function worldX(x){return gridCenter+x;}
 function worldY(y){return gridCenter-y;}
 
-/* ================
-  SKILLS
-================ */
+/* ===================
+ SKILLS
+=================== */
 const skillData=[
-  {id:'warrior',name:'Way of the Warrior',desc:'Increased Melee Damage<br>Skill: Spin',cost:2,parent:null,x:-200,y:0,size:45,borderColor:'#FF0000'},
-  {id:'flurry',name:'Flurry',desc:'Attack multiple times in an instant',cost:3,parent:'warrior',x:-350,y:0,size:60,borderColor:'#FF0000'},
-  {id:'jump',name:'Jump',desc:'Jump in the air and strike enemies',cost:2,parent:'flurry',x:-550,y:-70,size:60,borderColor:'#FF0000'},
-  {id:'p-parry',name:'Power Parry',desc:'Parry as you put up your shield',cost:1,parent:'flurry',x:-550,y:70,size:60,borderColor:'#FF0000'},
-  {id:'+block',name:'Increased Shield',desc:'Shields are 5% more effective',cost:1,parent:'p-parry',x:-700,y:100,size:45,borderColor:'#FF0000'}
+  {id:'warrior',name:'Way of the Warrior',cost:2,parent:null,x:-200,y:0,size:45,borderColor:'#FF0000'},
+  {id:'flurry',name:'Flurry',cost:3,parent:'warrior',x:-350,y:0,size:60,borderColor:'#FF0000'},
+  {id:'jump',name:'Jump',cost:2,parent:'flurry',x:-550,y:-70,size:60,borderColor:'#FF0000'},
+  {id:'p-parry',name:'Power Parry',cost:1,parent:'flurry',x:-550,y:70,size:60,borderColor:'#FF0000'},
+  {id:'+block',name:'Increased Shield',cost:1,parent:'p-parry',x:-700,y:100,size:45,borderColor:'#FF0000'},
+   {id:'+armor',name:'Increased Armor',cost:1,parent:'p-parry',x:-700,y:40,size:45,borderColor:'#FF0000'}
 ];
 
-/* ================
-  PLAYER STATE
-================ */
 let unlocked=new Set();
+const skillMap={};
 
-/* ================
-  DRAW GRID
-================ */
+/* ===================
+ GRID
+=================== */
 function drawGrid(){
   gridCtx.clearRect(0,0,gridSize,gridSize);
   gridCtx.strokeStyle="#333";
@@ -142,20 +173,17 @@ function drawGrid(){
   }
 }
 
-/* ================
-  AVAILABILITY
-================ */
+/* ===================
+ AVAILABILITY
+=================== */
 function available(skill){
   if(!skill.parent)return true;
   return unlocked.has(skill.parent);
 }
 
-/* ================
-  BUILD SKILLS
-================ */
-const world=document.getElementById("world");
-const skillMap={};
-
+/* ===================
+ BUILD SKILLS
+=================== */
 function buildSkills(){
 
   skillData.forEach(skill=>{
@@ -163,26 +191,24 @@ function buildSkills(){
     const div=document.createElement("div");
     div.className="skill";
     div.innerHTML=skill.name;
+
     div.style.width=skill.size+"px";
     div.style.height=skill.size+"px";
     div.style.border="3px solid "+skill.borderColor;
 
     positionSkill(div,skill);
 
-    if(!available(skill)){
+    if(!available(skill))
       div.classList.add("locked");
-    }
 
-    div.onclick=()=>{
+    div.onclick=e=>{
+      e.stopPropagation();
       if(!available(skill))return;
-
       unlocked.add(skill.id);
       refreshSkills();
     };
 
-    if(DEV_MODE){
-      enableDrag(div,skill);
-    }
+    enableSkillDrag(div,skill);
 
     world.appendChild(div);
     skillMap[skill.id]=div;
@@ -193,10 +219,9 @@ function buildSkills(){
 function refreshSkills(){
   skillData.forEach(skill=>{
     const div=skillMap[skill.id];
-    if(available(skill)) div.classList.remove("locked");
+    if(available(skill))div.classList.remove("locked");
     else div.classList.add("locked");
   });
-
   drawLines();
 }
 
@@ -205,9 +230,9 @@ function positionSkill(div,skill){
   div.style.top=(worldY(skill.y)-skill.size/2)+"px";
 }
 
-/* ================
-  LINES
-================ */
+/* ===================
+ LINES
+=================== */
 function drawLines(){
   lineCtx.clearRect(0,0,gridSize,gridSize);
   lineCtx.strokeStyle="#888";
@@ -215,7 +240,6 @@ function drawLines(){
 
   skillData.forEach(skill=>{
     if(!skill.parent)return;
-
     const parent=skillData.find(s=>s.id===skill.parent);
 
     lineCtx.beginPath();
@@ -225,21 +249,20 @@ function drawLines(){
   });
 }
 
-/* ================
-  DEV DRAGGING
-================ */
-function enableDrag(div,skill){
+/* ===================
+ SKILL DRAG
+=================== */
+function enableSkillDrag(div,skill){
 
   let dragging=false;
 
   div.onmousedown=e=>{
+    if(!DEV_MODE)return;
     dragging=true;
     e.stopPropagation();
   };
 
-  window.onmouseup=()=>dragging=false;
-
-  window.onmousemove=e=>{
+  window.addEventListener("mousemove",e=>{
     if(!dragging)return;
 
     skill.x+=e.movementX;
@@ -247,33 +270,36 @@ function enableDrag(div,skill){
 
     positionSkill(div,skill);
     drawLines();
-  };
+  });
+
+  window.addEventListener("mouseup",()=>dragging=false);
 }
 
-/* ================
-  CAMERA
-================ */
-const viewport=document.getElementById("viewport");
+/* ===================
+ CAMERA
+=================== */
 let camX=0,camY=0;
-let dragging=false;
+let camDrag=false;
 
-viewport.onmousedown=()=>dragging=true;
-window.onmouseup=()=>dragging=false;
+viewport.onmousedown=()=>camDrag=true;
+window.onmouseup=()=>camDrag=false;
 
 window.onmousemove=e=>{
-  if(!dragging)return;
+  if(!camDrag)return;
+
   camX+=e.movementX;
   camY+=e.movementY;
-  world.style.transform=`translate(calc(-50% + ${camX}px),calc(-50% + ${camY}px))`;
+
+  world.style.transform=
+  `translate(calc(-50% + ${camX}px),calc(-50% + ${camY}px))`;
 };
 
-/* ================
-  INIT
-================ */
+/* ===================
+ INIT
+=================== */
+world.style.transform="translate(-50%,-50%)";
 drawGrid();
 buildSkills();
 drawLines();
 
 </script>
-</body>
-</html>
