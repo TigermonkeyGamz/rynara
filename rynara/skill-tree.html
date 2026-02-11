@@ -10,187 +10,30 @@
 <title>Rynara Skill Tree</title>
 
 <style>
-:root{
-  --header-height:100px;
-}
-
-body{
-  margin:0;
-  padding:0;
-  font-family:'Share Tech Mono',system-ui,sans-serif;
-  background:#0d0d0d;
-  color:#e3dd9d;
-  text-align:center;
-  overflow:hidden;
-}
-
-a{
-  color:#e3dd9d;
-  text-decoration:none;
-}
-
-/* ============================= */
-/* HEADER */
-.site-header{
-  position:sticky;
-  top:0;
-  z-index:1000;
-  height:var(--header-height);
-  background:linear-gradient(180deg,#000 0%,#0d0d0d 100%);
-  border-bottom:1px solid #222;
-}
-
-.header-inner{
-  max-width:1750px;
-  margin:0 auto;
-  padding:10px 24px;
-  height:100%;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-}
-
-/* BRAND */
-.brand{
-  display:flex;
-  flex-direction:column;
-  align-items:flex-start;
-}
-
-.brand-name{
-  font-family:'Orbitron',sans-serif;
-  font-size:28px;
-  font-weight:800;
-  letter-spacing:1px;
-  background:linear-gradient(90deg,#e3dd9d,#b3b302);
-  background-clip:text;
-  -webkit-background-clip:text;
-  -webkit-text-fill-color:transparent;
-}
-
-.brand-tagline{
-  font-size:12px;
-  opacity:0.75;
-  margin-top:2px;
-}
-
-/* NAV */
-.header-nav{
-  display:flex;
-  gap:24px;
-}
-
-.header-nav a{
-  font-family:'Orbitron',sans-serif;
-  font-size:14px;
-  letter-spacing:.5px;
-  opacity:.85;
-  position:relative;
-}
-
-.header-nav a::after{
-  content:"";
-  position:absolute;
-  left:0;
-  bottom:-4px;
-  width:0%;
-  height:2px;
-  background:#e3dd9d;
-  transition:width .25s ease;
-}
-
+:root{--header-height:100px;}
+body{margin:0;padding:0;font-family:'Share Tech Mono',system-ui,sans-serif;background:#0d0d0d;color:#e3dd9d;text-align:center;overflow:hidden;}
+a{color:#e3dd9d;text-decoration:none;}
+.site-header{position:sticky;top:0;z-index:1000;height:var(--header-height);background:linear-gradient(180deg,#000 0%,#0d0d0d 100%);border-bottom:1px solid #222;}
+.header-inner{max-width:1750px;margin:0 auto;padding:10px 24px;height:100%;display:flex;align-items:center;justify-content:space-between;}
+.brand{display:flex;flex-direction:column;align-items:flex-start;}
+.brand-name{font-family:'Orbitron',sans-serif;font-size:28px;font-weight:800;letter-spacing:1px;background:linear-gradient(90deg,#e3dd9d,#b3b302);background-clip:text;-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.brand-tagline{font-size:12px;opacity:0.75;margin-top:2px;}
+.header-nav{display:flex;gap:24px;}
+.header-nav a{font-family:'Orbitron',sans-serif;font-size:14px;letter-spacing:.5px;opacity:.85;position:relative;}
+.header-nav a::after{content:"";position:absolute;left:0;bottom:-4px;width:0%;height:2px;background:#e3dd9d;transition:width .25s ease;}
 .header-nav a:hover::after{width:100%;}
 .header-nav a:hover{opacity:1;}
-
-/* ============================= */
-/* VIEWPORT */
-#viewport {
-  position: relative;
-  width: 100vw;
-  height: calc(100vh - var(--header-height));
-  cursor: grab;
-  overflow: hidden;
-}
-
-/* WORLD */
-#world{
-  position:absolute;
-  left:50%;
-  top:50%;
-  transform-origin:0 0;
-}
-
-/* SKILLS */
-.skill{
-  position:absolute;
-  background:#222;
-  border-radius:50%;
-  cursor:pointer;
-  user-select:none;
-  transition:.2s;
-  box-shadow:0 0 10px rgba(255,255,255,0.3);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  border:4px solid #555;
-  z-index:5;
-}
-
-.skill:hover{
-  background:#444;
-  box-shadow:0 0 15px #fff;
-}
-
-.unlocked{
-  background:#d4a526!important;
-  box-shadow:0 0 20px gold;
-}
-
-.line{
-  position:absolute;
-  height:2px;
-  background:#fff;
-  transform-origin:left center;
-  z-index:1;
-}
-
-.tooltip{
-  position:absolute;
-  background:rgba(0,0,0,.85);
-  color:#fff;
-  padding:6px 10px;
-  border-radius:5px;
-  pointer-events:none;
-  font-size:14px;
-  white-space:nowrap;
-  display:none;
-  z-index:2000;
-}
-
-/* SKILL POINTS */
-#skill-points{
-  position:fixed;
-  left:10px;
-  top:calc(var(--header-height) + 10px);
-  color:#fff;
-  font-size:18px;
-  background:#222;
-  padding:5px 10px;
-  border-radius:5px;
-  box-shadow:0 0 10px #000;
-  z-index:900;
-}
-
-/* GRID */
-#grid{
-  position:absolute;
-  left:0;
-  top:0;
-  z-index:-2;
-}
+#viewport {position: relative;width: 100vw;height: calc(100vh - var(--header-height));cursor: grab;overflow: hidden;}
+#world{position:absolute;left:50%;top:50%;transform-origin: center center;}
+.skill{position:absolute;background:#222;border-radius:50%;cursor:pointer;user-select:none;transition:.2s;box-shadow:0 0 10px rgba(255,255,255,0.3);display:flex;align-items:center;justify-content:center;border:4px solid #555;z-index:5;}
+.skill:hover{background:#444;box-shadow:0 0 15px #fff;}
+.unlocked{background:#d4a526!important;box-shadow:0 0 20px gold;}
+.line{position:absolute;height:2px;background:#fff;transform-origin:left center;z-index:1;}
+.tooltip{position:absolute;background:rgba(0,0,0,.85);color:#fff;padding:6px 10px;border-radius:5px;pointer-events:none;font-size:14px;white-space:nowrap;display:none;z-index:2000;}
+#skill-points{position:fixed;left:10px;top:calc(var(--header-height) + 10px);color:#fff;font-size:18px;background:#222;padding:5px 10px;border-radius:5px;box-shadow:0 0 10px #000;z-index:900;}
+#grid{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);z-index:-2;}
 </style>
 </head>
-
 <body>
 
 <header class="site-header">
@@ -219,46 +62,37 @@ a{
 <div class="tooltip" id="tooltip"></div>
 
 <script>
-if(window.self!==window.top){
-  document.body.classList.add("embedded");
-}
+if(window.self!==window.top) document.body.classList.add("embedded");
 
 let sp=10;
-
 const viewport=document.getElementById('viewport');
 const world=document.getElementById('world');
 const tooltip=document.getElementById('tooltip');
 const spCount=document.getElementById('sp-count');
-
 const gridCanvas=document.getElementById('grid');
 const gridCtx=gridCanvas.getContext('2d');
 
-let cameraX=0;
-let cameraY=0;
-let zoom=1;
-let dragging=false;
-let lastX=0,lastY=0;
+let cameraX=0,cameraY=0,zoom=1,dragging=false,lastX=0,lastY=0;
 
 const gridSize=4000;
 const gridCenter=gridSize/2;
 
 // helper functions: math coords → CSS coords
-function worldX(x){ return gridCenter + x; }
-function worldY(y){ return gridCenter - y; } // flip Y so +Y is up
-
+function worldX(x){ return x; } // now world coordinates are centered in #world
+function worldY(y){ return -y; } // +Y is up
 
   /* ================
   SKILLS
   ================ */
 const skillData=[
-  {id:'warrior',name:'Way of the Warrior',desc:'Increased Melee Damage<br>Skill: Spin',cost:2,parent:null,x:-200,y:15,size:40,borderColor:'#FF0000'},
+  {id:'warrior',name:'Way of the Warrior',desc:'Increased Melee Damage<br>Skill: Spin',cost:2,parent:null,x:-200,y:0,size:40,borderColor:'#FF0000'},
   {id:'flurry',name:'Flurry',desc:'Attack multiple times in an instant',cost:3,parent:'warrior',x:-350,y:0,size:70,borderColor:'#FF0000'},
-  {id:'jump',name:'Jump',desc:'Jump in the air and strike enemies',cost:2,parent:'flurry',x:-550,y:70,size:70,borderColor:'#FF0000'},
-  {id:'p-parry',name:'Power Parry',desc:'Parry as you put up your shield',cost:1,parent:'flurry',x:-550,y:-70,size:70,borderColor:'#FF0000'},
-  {id:'+block',name:'Increased Shield',desc:'Shields are 5% more effective',cost:1,parent:'p-parry',x:-550,y:-70,size:70,borderColor:'#FF0000'}
+  {id:'jump',name:'Jump',desc:'Jump in the air and strike enemies',cost:2,parent:'flurry',x:-550,y:-70,size:70,borderColor:'#FF0000'},
+  {id:'p-parry',name:'Power Parry',desc:'Parry as you put up your shield',cost:1,parent:'flurry',x:-550,y:70,size:70,borderColor:'#FF0000'},
+  {id:'+block',name:'Increased Shield',desc:'Shields are 5% more effective',cost:1,parent:'p-parry',x:-700,y:100,size:70,borderColor:'#FF0000'}
 ];
 
-  
+
 function drawGrid(){
   gridCanvas.width=gridSize;
   gridCanvas.height=gridSize;
@@ -267,25 +101,22 @@ function drawGrid(){
   gridCtx.strokeStyle='#333';
   gridCtx.fillStyle='#555';
   gridCtx.font='12px sans-serif';
-
   const step=100;
 
-  // vertical lines
-  for(let x=0;x<=gridSize;x+=step){
+  for(let x=-gridCenter;x<=gridCenter;x+=step){
     gridCtx.beginPath();
-    gridCtx.moveTo(x,0);
-    gridCtx.lineTo(x,gridSize);
+    gridCtx.moveTo(x+gridCenter,0);
+    gridCtx.lineTo(x+gridCenter,gridSize);
     gridCtx.stroke();
-    gridCtx.fillText(x-gridCenter, x+2, gridCenter+12);
+    gridCtx.fillText(x, x+gridCenter+2, gridCenter+12);
   }
 
-  // horizontal lines
-  for(let y=0;y<=gridSize;y+=step){
+  for(let y=-gridCenter;y<=gridCenter;y+=step){
     gridCtx.beginPath();
-    gridCtx.moveTo(0,y);
-    gridCtx.lineTo(gridSize,y);
+    gridCtx.moveTo(0,y+gridCenter);
+    gridCtx.lineTo(gridSize,y+gridCenter);
     gridCtx.stroke();
-    gridCtx.fillText(gridCenter - y, gridCenter+2, y-2); // flipped Y
+    gridCtx.fillText(y, gridCenter+2, gridCenter - y -2);
   }
 }
 
@@ -295,12 +126,11 @@ skillData.forEach(skill=>{
   div.className='skill';
   div.id=skill.id;
 
-  div.style.left = worldX(skill.x)+'px';
-  div.style.top  = worldY(skill.y)+'px';
-  div.style.width=skill.size+'px';
-  div.style.height=skill.size+'px';
+  div.style.left  = worldX(skill.x) - skill.size/2 + 'px';
+  div.style.top   = worldY(skill.y) - skill.size/2 + 'px';
+  div.style.width = skill.size + 'px';
+  div.style.height= skill.size + 'px';
   div.style.borderColor=skill.borderColor;
-
   world.appendChild(div);
 
   div.onmouseover=e=>{
@@ -329,7 +159,6 @@ function drawLines(){
 
   skillData.forEach(skill=>{
     if(!skill.parent) return;
-
     const parent=document.getElementById(skill.parent);
     const child=document.getElementById(skill.id);
 
@@ -349,34 +178,22 @@ function drawLines(){
     line.style.left=px+'px';
     line.style.top=py+'px';
     line.style.transform=`rotate(${angle}deg)`;
-
     world.appendChild(line);
   });
 }
 
-// drag & pan
+// drag & zoom
 viewport.addEventListener('mousedown',e=>{
-  dragging=true;
-  viewport.style.cursor='grabbing';
-  lastX=e.clientX;
-  lastY=e.clientY;
+  dragging=true; viewport.style.cursor='grabbing';
+  lastX=e.clientX; lastY=e.clientY;
 });
-
-window.addEventListener('mouseup',()=>{
-  dragging=false;
-  viewport.style.cursor='grab';
-});
-
+window.addEventListener('mouseup',()=>{dragging=false; viewport.style.cursor='grab';});
 window.addEventListener('mousemove',e=>{
   if(!dragging) return;
-  cameraX += e.clientX - lastX;
-  cameraY += e.clientY - lastY;
-  lastX = e.clientX;
-  lastY = e.clientY;
+  cameraX += e.clientX - lastX; cameraY += e.clientY - lastY;
+  lastX = e.clientX; lastY = e.clientY;
   updateCamera();
 });
-
-// zoom
 viewport.addEventListener('wheel',e=>{
   e.preventDefault();
   const zoomFactor=1.1;
@@ -386,15 +203,10 @@ viewport.addEventListener('wheel',e=>{
 },{passive:false});
 
 function updateCamera(){
-  const bounds=1800; 
-  const minX = -bounds * zoom;
-  const maxX =  bounds * zoom;
-  const minY = -bounds * zoom;
-  const maxY =  bounds * zoom;
-
+  const bounds=1800;
+  const minX=-bounds*zoom, maxX=bounds*zoom, minY=-bounds*zoom, maxY=bounds*zoom;
   cameraX = Math.max(minX, Math.min(maxX, cameraX));
   cameraY = Math.max(minY, Math.min(maxY, cameraY));
-
   world.style.transform = `translate(${cameraX}px,${cameraY}px) scale(${zoom})`;
 }
 
