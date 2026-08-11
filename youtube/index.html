@@ -1,4 +1,3 @@
-```html
 <!DOCTYPE html>
 <html lang="en">
 
@@ -16,8 +15,6 @@
     <!-- ============================= -->
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
-
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
     <link
         href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;800&family=Share+Tech+Mono&display=swap"
@@ -47,14 +44,12 @@
 
         a {
             color: #e3dd9d;
-
             text-decoration: none;
         }
 
 
         .header {
             font-family: 'Orbitron', system-ui, sans-serif;
-
             font-size: 50px;
         }
 
@@ -263,12 +258,12 @@
         }
 
 
-        .youtube-title {
+        .section-title {
             font-family: 'Orbitron', sans-serif;
 
-            font-size: 42px;
+            font-size: 36px;
 
-            margin: 0 0 12px;
+            margin: 0 0 10px;
 
             background: linear-gradient(
                 90deg,
@@ -284,12 +279,12 @@
         }
 
 
-        .youtube-subtitle {
-            margin: 0 0 45px;
+        .section-subtitle {
+            margin: 0 0 35px;
 
             opacity: 0.7;
 
-            font-size: 16px;
+            font-size: 15px;
         }
 
 
@@ -414,6 +409,132 @@
 
 
         /* ============================= */
+        /* FEATURED PLAYLIST */
+        /* ============================= */
+
+        .playlist-row {
+            display: grid;
+
+            grid-template-columns: 1.35fr 1fr;
+
+            gap: 30px;
+
+            align-items: stretch;
+
+            text-align: left;
+        }
+
+
+        .playlist-player {
+            background: #151515;
+
+            border: 1px solid #292929;
+
+            border-radius: 12px;
+
+            padding: 12px;
+
+            box-sizing: border-box;
+
+            transition:
+                border-color 0.25s ease,
+                box-shadow 0.25s ease;
+        }
+
+
+        .playlist-player:hover {
+            border-color: #b3b302;
+
+            box-shadow:
+                0 0 20px rgba(179, 179, 2, 0.2);
+        }
+
+
+        .playlist-player iframe {
+            display: block;
+
+            width: 100%;
+
+            aspect-ratio: 16 / 9;
+
+            border: none;
+
+            border-radius: 8px;
+        }
+
+
+        .playlist-description {
+            background: #151515;
+
+            border: 1px solid #292929;
+
+            border-radius: 12px;
+
+            padding: 30px;
+
+            display: flex;
+
+            flex-direction: column;
+
+            justify-content: center;
+
+            box-sizing: border-box;
+        }
+
+
+        .playlist-description h2 {
+            font-family: 'Orbitron', sans-serif;
+
+            font-size: 25px;
+
+            margin: 0 0 18px;
+
+            color: #e3dd9d;
+        }
+
+
+        .playlist-description p {
+            margin: 0;
+
+            line-height: 1.7;
+
+            opacity: 0.8;
+
+            font-size: 15px;
+        }
+
+
+        .playlist-link {
+            display: inline-block;
+
+            align-self: flex-start;
+
+            margin-top: 25px;
+
+            background-color: #b3b302;
+
+            color: #000000;
+
+            font-family: 'Orbitron', sans-serif;
+
+            font-size: 12px;
+
+            padding: 10px 16px;
+
+            border-radius: 6px;
+
+            transition: all 0.25s ease;
+        }
+
+
+        .playlist-link:hover {
+            background-color: #e3dd9d;
+
+            transform: scale(1.04);
+        }
+
+
+        /* ============================= */
         /* LOADING */
         /* ============================= */
 
@@ -451,6 +572,23 @@
 
 
         /* ============================= */
+        /* DIVIDER */
+        /* ============================= */
+
+        .section-divider {
+            width: 80%;
+
+            max-width: 1000px;
+
+            height: 1px;
+
+            margin: 80px auto;
+
+            background: #292929;
+        }
+
+
+        /* ============================= */
         /* MOBILE */
         /* ============================= */
 
@@ -458,6 +596,11 @@
 
             .video-grid {
                 grid-template-columns: repeat(2, 1fr);
+            }
+
+
+            .playlist-row {
+                grid-template-columns: 1fr;
             }
 
         }
@@ -477,13 +620,23 @@
             }
 
 
-            .youtube-title {
-                font-size: 30px;
+            .section-title {
+                font-size: 28px;
             }
 
 
             .video-grid {
                 grid-template-columns: 1fr;
+            }
+
+
+            .youtube-section {
+                margin-top: 45px;
+            }
+
+
+            .playlist-description {
+                padding: 22px;
             }
 
         }
@@ -505,8 +658,6 @@
         <div class="header-inner">
 
 
-            <!-- BRAND -->
-
             <div class="brand">
 
                 <span class="brand-name">
@@ -520,8 +671,6 @@
             </div>
 
 
-            <!-- NAVIGATION -->
-
             <nav class="header-nav">
 
                 <a href="/">
@@ -533,8 +682,6 @@
                     Games
                 </a>
 
-
-                <!-- THIS LINKS TO THIS WEBSITE PAGE -->
 
                 <a href="https://tigermonkeygamz.github.io/site/youtube/">
                     YouTube
@@ -550,25 +697,24 @@
 
 
     <!-- ============================= -->
-    <!-- MAIN CONTENT -->
+    <!-- LATEST VIDEOS -->
     <!-- ============================= -->
 
     <main>
 
+
         <section class="youtube-section">
 
 
-            <h1 class="youtube-title">
+            <h1 class="section-title">
                 Latest Videos
             </h1>
 
 
-            <p class="youtube-subtitle">
-                Check out my newest videos!
+            <p class="section-subtitle">
+                My newest videos.
             </p>
 
-
-            <!-- VIDEO GRID -->
 
             <div
                 id="video-grid"
@@ -584,6 +730,110 @@
 
         </section>
 
+
+
+        <!-- ============================= -->
+        <!-- DIVIDER -->
+        <!-- ============================= -->
+
+        <div class="section-divider"></div>
+
+
+
+        <!-- ============================= -->
+        <!-- FEATURED PLAYLIST -->
+        <!-- ============================= -->
+
+        <section class="youtube-section">
+
+
+            <h1 class="section-title">
+                Featured Playlist
+            </h1>
+
+
+            <p class="section-subtitle">
+                Check out my featured playlist!
+            </p>
+
+
+            <div class="playlist-row">
+
+
+                <!-- ============================= -->
+                <!-- PLAYLIST PLAYER -->
+                <!-- ============================= -->
+
+                <div class="playlist-player">
+
+                    <!--
+                        CHANGE THIS PLAYLIST ID.
+
+                        Example:
+
+                        https://www.youtube.com/playlist?list=PLPhy46W-lr34
+
+                        becomes:
+
+                        PL123456789
+                    -->
+
+                    <iframe
+                        src="https://www.youtube.com/embed/videoseries?list=PLAYLIST_ID_HERE"
+                        title="Featured YouTube Playlist"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        allowfullscreen
+                    ></iframe>
+
+                </div>
+
+
+                <!-- ============================= -->
+                <!-- PLAYLIST DESCRIPTION -->
+                <!-- ============================= -->
+
+                <div class="playlist-description">
+
+                    <!-- CHANGE THIS TITLE -->
+
+                    <h2>
+                        Hollow Knight: Silksong
+                    </h2>
+
+
+                    <!-- CHANGE THIS DESCRIPTION -->
+
+                    <p>
+                        Experience Silksong played by an amateur with humor...
+                        At least, I <i>think</i> I have humor... :)
+                    </p>
+
+
+                    <!--
+                        CHANGE THIS LINK TO YOUR PLAYLIST.
+
+                        This is optional, but lets visitors
+                        open the playlist directly on YouTube.
+                    -->
+
+                    <a
+                        class="playlist-link"
+                        href="https://www.youtube.com/playlist?list=PLPhy46W-lr34"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        VIEW PLAYLIST →
+                    </a>
+
+                </div>
+
+
+            </div>
+
+
+        </section>
+
+
     </main>
 
 
@@ -596,35 +846,24 @@
 
 
         /* ========================================== */
-        /* YOUTUBE CHANNEL SETTINGS */
+        /* CHANNEL SETTINGS */
         /* ========================================== */
 
-
-        /*
-         * PUT YOUR ACTUAL YOUTUBE CHANNEL ID HERE.
-         *
-         * It normally starts with "UC".
-         *
-         * Example:
-         *
-         * const CHANNEL_ID = "UC123456789...";
-         *
-         */
 
         const CHANNEL_ID =
             "UCb9XSwviXssQpDhFptXf7LA";
 
 
         /*
-         * How many videos should appear?
+         * Only show the 3 newest uploads.
          */
 
-        const VIDEO_COUNT = 6;
+        const VIDEO_COUNT = 3;
 
 
 
         /* ========================================== */
-        /* LOAD VIDEOS */
+        /* LOAD NEWEST VIDEOS */
         /* ========================================== */
 
         async function loadYouTubeVideos() {
@@ -646,11 +885,7 @@
 
 
                 /*
-                 * Convert the RSS feed into JSON.
-                 *
-                 * This allows GitHub Pages to display
-                 * the videos without needing your own
-                 * server.
+                 * Convert RSS into JSON.
                  */
 
                 const response =
@@ -677,28 +912,23 @@
                     data.items.length === 0
                 ) {
 
-                    videoGrid.innerHTML = `
-                        <div class="error-message">
-                            No videos found.
-                        </div>
-                    `;
-
-                    return;
+                    throw new Error(
+                        "No videos found."
+                    );
 
                 }
 
 
                 /*
-                 * Remove loading message.
+                 * Clear loading message.
                  */
 
                 videoGrid.innerHTML = "";
 
 
-
-                /* ================================== */
-                /* CREATE VIDEO CARDS */
-                /* ================================== */
+                /*
+                 * Take only the 3 newest uploads.
+                 */
 
                 data.items
                     .slice(0, VIDEO_COUNT)
@@ -741,7 +971,9 @@
                          */
 
                         const card =
-                            document.createElement("article");
+                            document.createElement(
+                                "article"
+                            );
 
 
                         card.className =
@@ -749,7 +981,8 @@
 
 
                         /*
-                         * Build card contents.
+                         * Build card.
+
                          */
 
                         card.innerHTML = `
@@ -824,6 +1057,7 @@
                         </p>
 
                         <p>
+
                             <a
                                 href="https://www.youtube.com/@TigermonkeyGamz"
                                 target="_blank"
@@ -831,6 +1065,7 @@
                             >
                                 Visit my YouTube channel →
                             </a>
+
                         </p>
 
                     </div>
@@ -877,4 +1112,3 @@
 </body>
 
 </html>
-```
